@@ -1,0 +1,15 @@
+{% extends 'pacientes.html' %}
+
+{% block list %}
+<div class="col-12">
+    <div class="card">
+      <!-- /.card-header -->
+      <div class="card-body table-responsive p-0" style="margin: 2%">
+        {% csrf_token %}
+        {{ form }}
+      </div>
+      <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+</div>
+{% endblock %}
