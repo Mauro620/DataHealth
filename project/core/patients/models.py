@@ -31,7 +31,7 @@ class patients(models.Model):
         ('Sano', 'Sano'),
         ('requiere cirugia', 'requiere cirugia' )
     ], max_length=30, default='Sano')
-    notas= models.CharField(max_length=1000, null= True, blank=True)
+    notas= models.CharField(max_length=1000, null= True, blank=True, unique=False)
 
     def __str__(self):
         return self.name

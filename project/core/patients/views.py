@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from core.patients.forms import PatientsForm
@@ -28,6 +29,7 @@ class PacientesCreateView(CreateView):
     model = patients
     form_class = PatientsForm
     template_name = 'PatientsCreate.html'
+    success_url = reverse_lazy('Patients')
 
     def get_context_data(self, **kwargs):
         contex = super().get_context_data(**kwargs)

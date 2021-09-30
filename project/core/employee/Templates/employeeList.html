@@ -17,11 +17,11 @@
                   <tbody>
                     {% for employee in object_list %}
                 <tr>
-                  <td>{{ employee.id }}</td>
-                  <td>{{ employee.name}}</td>
+                  <td>{{ employee.id_empleado }}</td>
+                  <td>{{ employee.name }} {{ employee.lastname }}</td>
                   <td>{{ employee.charge }}</td>
                   <td>
-                  <button type="button" class="btn btn-warning btn-xs"><i class="fas fa-edit"></i></button>
+                  <a href="{% url 'employee_update' employee.id_empleado %}" type="button" class="btn btn-warning btn-xs"><i class="fas fa-edit"></i></a>
                   <button type="button" class="btn btn-danger btn-xs"><i class="far fa-trash-alt"></i></button>
                   </td>
                 </tr>
@@ -29,8 +29,11 @@
                   </tbody>
                 </table>
               </div>
-              <!-- /.card-body -->
             </div>
-            <!-- /.card -->
+          <a href="/empleado/register">
+          <button type="button" class="btn btn-primary">
+              <i class="fas fa-plus"></i> Registrar Empleado
+          </button>
+          </a>
           </div>
 {% endblock %}
