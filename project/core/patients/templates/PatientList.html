@@ -1,0 +1,62 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'datatables-1.10.20/css/dataTables.bootstrap4.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'datatables-1.10.20/plugins/responsive-2.2.3/css/responsive.bootstrap4.min.css' %}"/>
+    <script src="{% static 'datatables-1.10.20/js/jquery.dataTables.js' %}"></script>
+    <script src="{% static 'datatables-1.10.20/js/dataTables.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'datatables-1.10.20/plugins/responsive-2.2.3/js/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static 'datatables-1.10.20/plugins/responsive-2.2.3/js/responsive.bootstrap4.min.js' %}"></script>
+{% endblock %}
+
+{% block Content  %}
+<div class="col-12">
+            <div class="card">
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0">
+                <table class="table table-hover text-nowrap" id="data">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Nombre</th>
+                      <th>Estado</th>
+                      <th>Opciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for Paciente in object_list %}
+                <tr>
+                  <td>{{ Paciente.id_patient }}</td>
+                  <td>{{ Paciente.name}} {{ Paciente.lastname }}</td>
+                  <td>{{ Paciente.state }}</td>
+                  <td>
+                  <a href="{% url 'Pacientes_Update' Paciente.id_patient %}" type="button" class="btn btn-warning btn-xs" title="Editar Paciente"><i class="fas fa-edit"></i></a>
+                  <a href="{% url 'Pacientes_Delete' Paciente.id_patient %}" class="btn btn-danger btn-xs" title="Eliminar Paciente"><i class="far fa-trash-alt"></i></a>
+                  <a href="{% url 'Visitantes' %}" class="btn btn-success btn-xs" title="ver visitantes"><i class="far fa-user"></i> </a>
+                  </td>
+                </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+             <a href="/pacientes/create">
+                <button type="button" class="btn btn-primary">
+                  <i class="fas fa-plus"></i> Registrar Paciente
+                </button>
+             </a>
+            <!-- /.card -->
+          </div>
+{% endblock %}
+
+{% block javascript %}
+        <script type="application/javascript">
+        $(document).ready(function () {
+            $('#data').DataTable({
+                responsive: false
+            });
+        });
+        </script>
+{% endblock %}

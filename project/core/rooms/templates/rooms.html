@@ -1,0 +1,36 @@
+{% extends 'index.html' %}
+    {% block buton %}
+        <!-- Boton agregar nueva sala -->
+          <a href="/salas/register">
+              <button type="button" class="btn btn-primary btnTest">
+                  <i class="fas fa-plus"></i>  Nueva Sala
+              </button>
+          </a>
+        <!-- Fin boton -->
+    {% endblock %}
+{% block Content %}
+  <div class="card-body">
+          {% for salas in object_list %}
+      <div class="col-lg-3 col-6" style="display: inline-block">
+          <div class="small-box bg-gradient-lightblue" style="padding: 2%">
+              <div class="inner" style="display: inline-flex; ">
+                <h3>Sala {{ salas.n_room }}</h3>
+                  <div class="icon">
+                      <a href="{% url 'Salas_Update' salas.n_room %}" type="button" class="btn btn-outline-dark">
+                          <i class="fas fa-edit"></i>
+                      </a>
+                  </div>
+              </div>
+              <p> {{ salas.funtion }} <br> Capacidad Max:  <strong>{{ salas.capacity }}</strong> </p>
+              <div class="icon">
+                  <i class="ion ion-bag"></i>
+              </div>
+              <a href="#" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
+          </div>
+      </div>
+      {% endfor %}
+      <!-- ./col -->
+  </div>
+  <!-- /.card-body -->
+  <!-- /.card-footer-->
+{% endblock %}

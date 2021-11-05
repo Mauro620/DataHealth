@@ -1,0 +1,7 @@
+{% extends 'index.html' %}
+
+{% block Content %}
+{% for Paciente in visitor %}
+    <h2>{{ Paciente.objets.name }}</h2>
+{% endfor %}
+{% endblock %}

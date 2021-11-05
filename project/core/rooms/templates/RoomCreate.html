@@ -1,0 +1,15 @@
+{% extends 'FormBase.html' %}
+
+{% block newbutton %}
+         <button type="submit" class="btn btn-danger" id="eliminar">
+            <i class="fas fa-trash"></i> Eliminar
+        </button>
+
+    <script>
+        Swal.fire({
+            title: 'Eliminar',
+            text: 'Usted esta a punto de eliminar una sala\n ¿Seguro que quiere eliminar? ',
+            icon:'trash'
+        });
+    </script>
+{% endblock %}
