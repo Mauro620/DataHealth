@@ -2,18 +2,19 @@
 {% load static %}
 
 {% block head %}
-<link rel="stylesheet" href="{% static 'datatables-1.10.20/css/dataTables.bootstrap4.min.css' %}"/>
-    <link rel="stylesheet" href="{% static 'datatables-1.10.20/plugins/responsive-2.2.3/css/responsive.bootstrap4.min.css' %}"/>
-    <script src="{% static 'datatables-1.10.20/js/jquery.dataTables.js' %}"></script>
-    <script src="{% static 'datatables-1.10.20/js/dataTables.bootstrap4.min.js' %}"></script>
-    <script src="{% static 'datatables-1.10.20/plugins/responsive-2.2.3/js/dataTables.responsive.min.js' %}"></script>
-    <script src="{% static 'datatables-1.10.20/plugins/responsive-2.2.3/js/responsive.bootstrap4.min.js' %}"></script>
+<link rel="stylesheet" href="{% static 'lib/datatables-1.10.20/css/dataTables.bootstrap4.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/css/responsive.bootstrap4.min.css' %}"/>
+    <script src="{% static 'lib/datatables-1.10.20/js/jquery.dataTables.js' %}"></script>
+    <script src="{% static 'lib/datatables-1.10.20/js/dataTables.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/responsive.bootstrap4.min.js' %}"></script>
 {% endblock %}
 
 {% block Content %}
 <div class="col-12">
             <div class="card">
               <div class="card-body table-responsive p-0">
+              <div class="container-fluid">
                 <table class="table table-hover text-nowrap" id="data">
                   <thead>
                     <tr>
@@ -26,7 +27,7 @@
                   <tbody>
                     {% for employee in object_list %}
                 <tr>
-                  <td>{{ employee.id_empleado }}</td>
+                  <td>{{ employee.id_empleado }} </td>
                   <td>{{ employee.name }} {{ employee.lastname }}</td>
                   <td>{{ employee.charge }}</td>
                   <td>
@@ -37,6 +38,7 @@
                     {% endfor %}
                   </tbody>
                 </table>
+                </div>
               </div>
             </div>
           <a href="/empleado/register">
@@ -59,7 +61,7 @@
                responsive: false
             });
 
-            /* $('.btnTest').on('click', function (){
+            $('.btnTest').on('click', function (){
                 $.ajax({
                     url: '{% url 'employee_list' %}',
                     type: 'POST',
@@ -72,10 +74,7 @@
                 }).always(function (data) {
 
                 });
-            }); */
+            });
         });
-
-
     </script>
-
 {% endblock %}

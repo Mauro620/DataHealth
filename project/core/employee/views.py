@@ -1,11 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import JsonResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, _get_queryset
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, TemplateView
 from core.employee.forms import EmployeeForm
 from core.employee.models import employee
 from django.contrib import messages
@@ -30,9 +30,16 @@ class EmpleadoListView(ListView):
         return JsonResponse(data)
 
     def get_context_data(self, **kwargs):
-        contex = super().get_context_data(**kwargs)
-        contex['title'] = 'Listado Empleados'
-        return contex
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Listado Empleados'
+        return context
+
+    def seleccionEmpleado(self, selected, deselected):
+        indexes = selected.indexes()
+        if len(indexes)>0:
+            item = self.request.employee.model().itemFromIndex(index[0])
+
+
 
 
 class EmpleadoCreateView(CreateView):
@@ -42,14 +49,13 @@ class EmpleadoCreateView(CreateView):
     success_url = reverse_lazy('employee_list')
 
     def get_context_data(self, **kwargs):
-        contex = super().get_context_data(**kwargs)
-        contex['title'] = 'Registrar Empleado'
-        return contex
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Registrar Empleado'
+        return context
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
-
 
 class EmpleadoUpdateView(UpdateView):
     model = employee
@@ -62,13 +68,12 @@ class EmpleadoUpdateView(UpdateView):
         return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        contex = super().get_context_data(**kwargs)
-        contex['title'] = 'Editar Empleado'
-        contex['action'] = 'edit'
-        contex['list_url'] = reverse_lazy('employee_list')
-        contex['entity'] = 'Empleados'
-        return contex
-
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Editar Empleado'
+        context['action'] = 'edit'
+        context['list_url'] = reverse_lazy('employee_list')
+        context['entity'] = 'Empleados'
+        return context
 
 class EmpleadoDeleteView(SuccessMessageMixin, DeleteView):
     model = employee
@@ -86,8 +91,31 @@ class EmpleadoDeleteView(SuccessMessageMixin, DeleteView):
         )
 
     def get_context_data(self, **kwargs):
-        contex = super().get_context_data(**kwargs)
-        contex['title'] = 'Eliminar Empleado'
-        contex['list_url'] = reverse_lazy('employee_list')
-        contex['entity'] = 'Empleados'
-        return contex
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Eliminar Empleado'
+        context['list_url'] = reverse_lazy('employee_list')
+        context['entity'] = 'Empleados'
+        return context
+
+class EmpleadoTemplateView(ListView):
+    template_name = 'empleado_completo.html'
+    model = employee
+
+    @method_decorator(login_required())
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Empleado'
+        return context
+
+    def get_queryset(self):
+        qs = employee.objects.all()
+        employeeModel = self.request.GET.get("ident")
+        if employeeModel:
+            qs = qs.filter(gender = employeeModel)
+        return qs
+
+
+

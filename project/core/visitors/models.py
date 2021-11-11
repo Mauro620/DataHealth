@@ -9,7 +9,7 @@ class visitors(models.Model):
     cel_number = models.IntegerField(verbose_name='Número de celular')
     email = models.CharField(verbose_name='Correo Electronico', max_length=50, unique=True)
     relation = models.CharField(verbose_name='Relación con el paciente', max_length=30)
-    patient = models.ForeignKey(patients, on_delete=models.CASCADE)
+    #patient = models.ForeignKey(patients, on_delete=models.CASCADE)
     # name_patient = models.ForeignKey(verbose_name='nombre del paciente', to='patients.models', on_delete=False)
 
     def __str__(self):

@@ -27,6 +27,4 @@ urlpatterns = [
     path('', include('core.visitors.urls')),
     path('', include('core.visitors.urls')),
     path('', include('core.login.urls'))
-
-
 ]

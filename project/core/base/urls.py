@@ -5,5 +5,7 @@ from project import settings
 
 
 urlpatterns = [
-    path('inicio/', InicioTemplateView.as_view(), name='base'),
+    path('', InicioTemplateView.as_view(), name='base'),
+    path('contacto/', contactoTemplateView.as_view(), name='contacto'),
+
 ]

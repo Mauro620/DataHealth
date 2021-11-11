@@ -1,0 +1,53 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block Content %}
+<div class="col-12">
+        <div class="card">
+          <div class="card-body table-responsive p-0">
+            <div class="container-fluid">
+                {% for empleado in employee.id_empleado %}
+                    {% if empleado == ident %}
+                        <ul>
+                            <li>{{ empleado.id_empleado }}</li>
+                            <li>{{ empleado.name }}</li>
+                            <li>{{ employee.lastname }}</li>
+                            <li>{{ employee.gender }}</li>
+                            <li>{{ employeeModel.charge }}</li>
+                        </ul>
+                    {% endif %}
+                {% endfor %}
+            </div>
+          </div>
+        </div>
+         <!-- <button type="button" class="btn btn-primary btnTest">
+              Refrescar pagina
+          </button> -->
+        </div>
+
+
+{% endblock %}
+
+{% block javascript %}
+        <script type="application/javascript">
+
+            $('.btnTest').on('click', function (){
+                $.ajax({
+                    url: '{% url 'employee_list' %}',
+                    type: 'POST',
+                    data: {id_empleado: 1192748862},
+                    datatype: 'json'
+                }).done(function(data){
+                    console.log(data);
+                }).fail(function(data) {
+                    alert('error');
+                }).always(function (data) {
+
+                });
+            });
+    </script>
+{% endblock %}

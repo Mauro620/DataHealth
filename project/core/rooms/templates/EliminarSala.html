@@ -1,10 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "empleado.html" %}
+{% load static %}
+{% block list %}
+    <form action="." method="post">
+    <div class="card">
+        <div class="card-body table-responsive p-0" style="padding: 1%">
+                <div class="alert alert-danger alert-dismissible">
+                    {% csrf_token %}
+                  <h5><i class="icon fas fa-ban"></i> ¡Estas a punto de eliminar los datos de el empleado {{ object.name }} {{ object.lastname }}!</h5>
+                    ¿Seguro que quieres eliminar? Despues de aceptar no se podran recuperar los datos de este empleado
+                </div>
+        </div>
+    </div>
+        <button type="submit" class="btn btn-primary">
+            <i class="fas fa-trash"></i> Eliminar
+        </button>
+        <a href="{{ list_url }}" class="btn btn-info">
+            <i class="fas fa-times"></i> Cancelar
+        </a>
+</form>
 
-</body>
-</html>
+{% endblock %}
